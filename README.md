@@ -118,8 +118,11 @@ Example output:
 ```
 
 ## Noted
-What is kolFollowersCount?
+### What is kolFollowersCount?
 
 We have labeled about 10,000 Twitter accounts as KOLs — accounts with large followings and strong reputations. When these KOLs follow an account or like a post, it increases the post’s perceived reliability.
 
+
+### Futher information
+Please visit [Foxhole Bot](https://foxhole.bot/discover) for more information.
 

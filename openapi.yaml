@@ -1,0 +1,629 @@
+openapi: 3.0.3
+info:
+  title: Foxhole API
+  version: 1.0.0
+  description: OpenAPI specification generated from README to cover Twitter Users and Keyword Monitors endpoints.
+  contact:
+    name: Foxhole
+    url: https://foxhole.bot
+  license:
+    name: Proprietary
+servers:
+  - url: https://foxhole.bot/api/v1
+security:
+  - apiKeyAuth: []
+tags:
+  - name: Twitter Users
+  - name: Keyword Monitors
+components:
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    TwitterUserInfo:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        screenName:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+          nullable: true
+        followersCount:
+          type: integer
+        friendsCount:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        favouritesCount:
+          type: integer
+        verified:
+          type: boolean
+        statusesCount:
+          type: integer
+        mediaCount:
+          type: integer
+        profileBannerUrl:
+          type: string
+          nullable: true
+        profileImageUrlHttps:
+          type: string
+          nullable: true
+        isKol:
+          type: boolean
+        kolFollowersCount:
+          type: integer
+        deletedAt:
+          type: string
+          format: date-time
+          nullable: true
+        protectedAt:
+          type: string
+          format: date-time
+          nullable: true
+        avgKolFollowerInfluence:
+          type: integer
+      required: [id, name, screenName, followersCount, friendsCount, verified, statusesCount, isKol]
+    Entities:
+      type: object
+      properties:
+        hashtags:
+          type: array
+          items:
+            type: string
+        symbols:
+          type: array
+          items:
+            type: string
+        urls:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+              expanded_url:
+                type: string
+              display_url:
+                type: string
+              indices:
+                type: array
+                items:
+                  type: integer
+        user_mentions:
+          type: array
+          items:
+            type: object
+            properties:
+              screen_name:
+                type: string
+              name:
+                type: string
+              id:
+                type: integer
+              id_str:
+                type: string
+              indices:
+                type: array
+                items:
+                  type: integer
+    Media:
+      type: object
+      properties:
+        id_str:
+          type: string
+        type:
+          type: string
+          description: Media type (e.g., photo)
+        media_url_https:
+          type: string
+        url:
+          type: string
+        sizes:
+          type: object
+          additionalProperties: true
+    Tweet:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        text:
+          type: string
+        entities:
+          $ref: '#/components/schemas/Entities'
+        medias:
+          type: array
+          items:
+            $ref: '#/components/schemas/Media'
+          nullable: true
+        inReplyToStatusIdStr:
+          type: string
+          nullable: true
+        inReplyToUserIdStr:
+          type: string
+          nullable: true
+        inReplyToUserScreenName:
+          type: string
+          nullable: true
+        quotedStatusIdStr:
+          type: string
+          nullable: true
+        quotedUserScreenName:
+          type: string
+          nullable: true
+        quotedUserIdStr:
+          type: string
+          nullable: true
+        retweetedStatusIdStr:
+          type: string
+          nullable: true
+        retweetedUserIdStr:
+          type: string
+          nullable: true
+        retweetedUserScreenName:
+          type: string
+          nullable: true
+        retweetedStatusCreatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        favoriteCount:
+          type: integer
+        bookmarkCount:
+          type: integer
+          nullable: true
+        viewCount:
+          type: integer
+          nullable: true
+        quoteCount:
+          type: integer
+          nullable: true
+        replyCount:
+          type: integer
+          nullable: true
+        retweetCount:
+          type: integer
+          nullable: true
+        fullText:
+          type: string
+          nullable: true
+        notetweetEntities:
+          type: object
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        truncated:
+          type: boolean
+          nullable: true
+      required: [id, text, createdAt]
+    TwitterUserSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        screenName:
+          type: string
+        location:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+          nullable: true
+        followersCount:
+          type: integer
+        friendsCount:
+          type: integer
+        kolFollowersCount:
+          type: integer
+        isKol:
+          type: boolean
+        tags:
+          type: array
+          items:
+            type: string
+      required: [id, name, screenName]
+    StoredTweetItem:
+      type: object
+      properties:
+        tweet:
+          $ref: '#/components/schemas/Tweet'
+        user:
+          $ref: '#/components/schemas/TwitterUserSummary'
+      required: [tweet, user]
+    KeywordMonitor:
+      type: object
+      properties:
+        id:
+          type: integer
+        handle:
+          type: string
+          nullable: true
+        counter:
+          type: integer
+          nullable: true
+        name:
+          type: string
+        keywords:
+          type: array
+          items:
+            type: string
+        lastTweetId:
+          type: string
+          nullable: true
+        currentDelayMs:
+          type: integer
+          nullable: true
+        nextSearchAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        endAt:
+          type: string
+          format: date-time
+          nullable: true
+        status:
+          type: string
+          enum: [active, paused]
+        rewardAmount:
+          type: number
+          nullable: true
+        rewardTicker:
+          type: string
+          nullable: true
+        rewardChain:
+          type: string
+          nullable: true
+        rewardTokenAddress:
+          type: string
+          nullable: true
+        slug:
+          type: string
+        tweetCount:
+          type: integer
+          nullable: true
+        userCount:
+          type: integer
+          nullable: true
+      required: [id, name, keywords, status, slug, createdAt, updatedAt]
+    KeywordMonitorUser:
+      type: object
+      properties:
+        userId:
+          type: string
+        name:
+          type: string
+        screenName:
+          type: string
+        description:
+          type: string
+        website:
+          type: string
+          nullable: true
+        location:
+          type: string
+          nullable: true
+        followersCount:
+          type: integer
+        friendsCount:
+          type: integer
+        profileImageUrlHttps:
+          type: string
+          nullable: true
+        profileBannerUrl:
+          type: string
+          nullable: true
+        kolFollowersCount:
+          type: integer
+        tweetCount:
+          type: integer
+        percentage:
+          type: number
+      required: [userId, name, screenName]
+paths:
+  /twitterUsers/info:
+    get:
+      tags: [Twitter Users]
+      summary: Get Twitter users info by screenName and/or userId
+      description: Retrieve user profile information for one or more Twitter users by screen name and/or user ID.
+      operationId: getTwitterUsersInfo
+      parameters:
+        - name: screenName
+          in: query
+          description: Comma-separated list of Twitter screen names
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          example: ["elonmusk", "VitalikButerin"]
+        - name: userId
+          in: query
+          description: Comma-separated list of Twitter user IDs
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          example: ["2259434528", "902926941413453824"]
+      responses:
+        '200':
+          description: Array of user info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TwitterUserInfo'
+              examples:
+                example:
+                  value:
+                    - id: "44196397"
+                      name: "Elon Musk"
+                      screenName: "elonmusk"
+                      followersCount: 226882974
+                      friendsCount: 1215
+                      verified: true
+                      statusesCount: 86597
+                      isKol: true
+                    - id: "295218901"
+                      name: "vitalik.eth"
+                      screenName: "VitalikButerin"
+                      followersCount: 5825700
+                      friendsCount: 507
+                      verified: false
+                      statusesCount: 21141
+                      isKol: true
+  /twitterUsers/stored-tweets:
+    get:
+      tags: [Twitter Users]
+      summary: Get stored tweets by user IDs within an optional time range
+      description: Return stored tweets for specified user IDs within an optional createdAt time range.
+      operationId: getStoredTweets
+      parameters:
+        - name: userId
+          in: query
+          description: Comma-separated list of Twitter user IDs
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          example: ["2259434528", "902926941413453824"]
+        - name: createdAfter
+          in: query
+          description: Filter tweets created after this timestamp (ISO 8601)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: "2025-08-11T12:00:00Z"
+        - name: createdBefore
+          in: query
+          description: Filter tweets created before this timestamp (ISO 8601)
+          required: false
+          schema:
+            type: string
+            format: date-time
+          example: "2025-08-11T23:59:59Z"
+      responses:
+        '200':
+          description: Array of stored tweets with associated user summary
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoredTweetItem'
+              examples:
+                example:
+                  value:
+                    - tweet:
+                        id: "1954949720553689519"
+                        text: "@EugeniaChele Where did I say anything about Weapons"
+                        favoriteCount: 18
+                        createdAt: "2025-08-11T16:55:09.000Z"
+                      user:
+                        id: "2259434528"
+                        name: "Cobie"
+                        screenName: "cobie"
+                        followersCount: 828309
+                        friendsCount: 1207
+                        isKol: true
+                        kolFollowersCount: 5645
+  /twitterUsers/tweets:
+    get:
+      tags: [Twitter Users]
+      summary: Get tweets by tweet IDs
+      description: Fetch tweets by their IDs.
+      operationId: getTweetsByIds
+      parameters:
+        - name: id
+          in: query
+          description: Comma-separated list of tweet IDs
+          required: true
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          example: ["20", "1950452968655851759"]
+      responses:
+        '200':
+          description: Array of tweets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tweet'
+              examples:
+                example:
+                  value:
+                    - id: "20"
+                      userId: "12"
+                      text: "just setting up my twttr"
+                      favoriteCount: 263467
+                      createdAt: "2006-03-21T20:50:14.000Z"
+                    - id: "1950452968655851759"
+                      userId: "851054131418505216"
+                      text: "这是马库斯·佩尔松。"
+                      favoriteCount: 3783
+                      viewCount: 2776275
+                      createdAt: "2025-07-30T07:06:40.000Z"
+  /keywordMonitors:
+    post:
+      tags: [Keyword Monitors]
+      summary: Create a keyword monitor
+      description: Create a new keyword monitor that searches for tweets containing specified keywords.
+      operationId: createKeywordMonitor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                keywords:
+                  type: array
+                  items:
+                    type: string
+              required: [name, keywords]
+            examples:
+              example:
+                value:
+                  name: "uxlink tweets"
+                  keywords: ["@uxlink"]
+      responses:
+        '201':
+          description: Keyword monitor created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeywordMonitor'
+              examples:
+                example:
+                  value:
+                    id: 81
+                    handle: "uxlink-tweets"
+                    counter: 4
+                    name: "uxlink tweets"
+                    keywords: ["@uxlink"]
+                    lastTweetId: ""
+                    currentDelayMs: 5000
+                    nextSearchAt: "2025-09-30T08:10:30.948Z"
+                    createdAt: "2025-09-30T08:10:30.948Z"
+                    updatedAt: "2025-09-30T08:10:30.948Z"
+                    endAt: null
+                    status: "active"
+                    slug: "uxlink-tweets-4"
+  /keywordMonitors/{slug}:
+    get:
+      tags: [Keyword Monitors]
+      summary: Get a keyword monitor by slug
+      description: Retrieve a keyword monitor by its slug identifier.
+      operationId: getKeywordMonitor
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: Keyword monitor slug identifier
+          schema:
+            type: string
+          example: uxlink-tweets
+      responses:
+        '200':
+          description: Keyword monitor details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KeywordMonitor'
+              examples:
+                example:
+                  value:
+                    id: 39
+                    name: "uxlink tweets"
+                    status: "paused"
+                    keywords: ["@UXLINKofficial"]
+                    createdAt: "2025-08-01T16:10:56.775Z"
+                    updatedAt: "2025-08-01T16:10:56.775Z"
+                    endAt: null
+                    tweetCount: 10201
+                    userCount: 3466
+                    slug: "uxlink-tweets"
+  /keywordMonitors/{slug}/users:
+    get:
+      tags: [Keyword Monitors]
+      summary: List users associated with a keyword monitor slug
+      description: List users who have tweeted content matched by the keyword monitor.
+      operationId: listKeywordMonitorUsers
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          description: Keyword monitor slug identifier
+          schema:
+            type: string
+          example: uxlink-tweets
+      responses:
+        '200':
+          description: Array of users associated with the monitor
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/KeywordMonitorUser'
+              examples:
+                example:
+                  value:
+                    - userId: "1001811143680241664"
+                      name: "Jer"
+                      screenName: "HelloRobinson"
+                      followersCount: 2568
+                      friendsCount: 1663
+                      kolFollowersCount: 11
+                      tweetCount: 1
+                      percentage: 0
+                    - userId: "1002216461882900480"
+                      name: "Susie"
+                      screenName: "0x_susie"
+                      followersCount: 1568
+                      friendsCount: 778
+                      kolFollowersCount: 3
+                      tweetCount: 1
+                      percentage: 0
