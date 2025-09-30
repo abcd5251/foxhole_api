@@ -22,7 +22,9 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
   - screenName (array, optional): Comma-separated screen names.
   - userId (array, optional): Comma-separated user IDs.
 - Example:
-  - curl -i -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/info?screenName=elonmusk,VitalikButerin&userId=2259434528,902926941413453824"
+  ```bash
+  curl -i -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/info?screenName=elonmusk,VitalikButerin&userId=2259434528,902926941413453824"
+  ```
 - Sample response (trimmed):
   - [
     {"id":"44196397","name":"Elon Musk","screenName":"elonmusk","followersCount":226882974,"friendsCount":1215,"verified":true,"statusesCount":86597,"isKol":true,"createdAt":"2009-06-02T20:12:29.000Z"},
@@ -37,7 +39,9 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
   - createdAfter (string, optional): ISO 8601 timestamp.
   - createdBefore (string, optional): ISO 8601 timestamp.
 - Example:
-  - curl -i -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/stored-tweets?userId=2259434528,902926941413453824&createdAfter=2025-08-11T12:00:00Z&createdBefore=2025-08-11T23:59:59Z"
+  ```bash
+  curl -i -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/stored-tweets?userId=2259434528,902926941413453824&createdAfter=2025-08-11T12:00:00Z&createdBefore=2025-08-11T23:59:59Z"
+  ```
 - Sample response (trimmed):
   - [
     {"tweet":{"id":"1954949720553689519","text":"@EugeniaChele Where did I say anything about Weapons","favoriteCount":18,"createdAt":"2025-08-11T16:55:09.000Z"},"user":{"id":"2259434528","name":"Cobie","screenName":"cobie","followersCount":828309,"friendsCount":1207,"isKol":true}},
@@ -50,7 +54,9 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
 - Query parameters:
   - id (array, required): Comma-separated tweet IDs.
 - Example:
-  - curl -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/tweets?id=20,1950452968655851759"
+  ```bash
+  curl -H "X-API-Key: YOUR-API-KEY" "https://foxhole.bot/api/v1/twitterUsers/tweets?id=20,1950452968655851759"
+  ```
 - Sample response (trimmed):
   - [
     {"id":"20","userId":"12","text":"just setting up my twttr","favoriteCount":263467,"retweetCount":122875,"createdAt":"2006-03-21T20:50:14.000Z","updatedAt":"2025-09-30T07:32:36.746Z"},
@@ -64,10 +70,12 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
   - name (string, required)
   - keywords (array<string>, required)
 - Example:
-  - curl -X POST "https://foxhole.bot/api/v1/keywordMonitors" \
+  ```bash
+  curl -X POST "https://foxhole.bot/api/v1/keywordMonitors" \
     -H "Content-Type: application/json" \
     -H "X-API-Key: YOUR-API-KEY" \
     -d '{"name":"uxlink tweets","keywords":["@uxlink"]}'
+  ```
 - Sample response (trimmed):
   - {"id":81,"handle":"uxlink-tweets","counter":4,"name":"uxlink tweets","keywords":["@uxlink"],"currentDelayMs":5000,"nextSearchAt":"2025-09-30T08:10:30.948Z","createdAt":"2025-09-30T08:10:30.948Z","updatedAt":"2025-09-30T08:10:30.948Z","status":"active","slug":"uxlink-tweets-4"}
 
@@ -77,7 +85,9 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
 - Path parameters:
   - slug (string, required)
 - Example:
-  - curl -X GET "https://foxhole.bot/api/v1/keywordMonitors/uxlink-tweets" -H "X-API-Key: YOUR-API-KEY"
+  ```bash
+  curl -X GET "https://foxhole.bot/api/v1/keywordMonitors/uxlink-tweets" -H "X-API-Key: YOUR-API-KEY"
+  ```
 - Sample response (trimmed):
   - {"id":39,"name":"uxlink tweets","status":"paused","keywords":["@UXLINKofficial"],"createdAt":"2025-08-01T16:10:56.775Z","updatedAt":"2025-08-01T16:10:56.775Z","endAt":null,"tweetCount":10201,"userCount":3466,"slug":"uxlink-tweets"}
 
@@ -87,7 +97,9 @@ This document is a concise, easy-to-follow description of the Foxhole API. It co
 - Path parameters:
   - slug (string, required)
 - Example:
-  - curl -X GET "https://foxhole.bot/api/v1/keywordMonitors/uxlink-tweets/users" -H "X-API-Key: YOUR-API-KEY"
+  ```bash
+  curl -X GET "https://foxhole.bot/api/v1/keywordMonitors/uxlink-tweets/users" -H "X-API-Key: YOUR-API-KEY"
+  ```
 - Sample response (trimmed):
   - [
     {"userId":"1001811143680241664","name":"Jer","screenName":"HelloRobinson","followersCount":2568,"friendsCount":1663,"kolFollowersCount":11,"tweetCount":1,"percentage":0},
