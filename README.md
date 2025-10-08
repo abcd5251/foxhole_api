@@ -2,6 +2,29 @@
 
 This document is a concise, easy-to-follow description of the Foxhole API. It covers authentication, base URL, available endpoints, required/optional parameters, and trimmed examples so you can get productive quickly.
 
+## Key Capabilities
+
+#### 1. User Analytics  
+Get follower stats, smart follower lists, and full profile history (name, avatar, bio, username changes).
+
+#### 2. Mass Tweet Analysis
+Retrieve and analyze large-scale historical tweets (300K+) with engagement metrics and time filters.
+
+#### 3. Tweet Engagement Tracking
+Monitor views, retweets, replies, quotes, likes, and bookmarks in real time.
+
+#### 4. Web3 Engagement Insights
+Track how Web3 users engage with tweets or accounts, filtered by time or follower type.
+
+#### 5. KOL Network Tracking
+Map 10K+ KOL followings, detect trending accounts, and get update alerts.
+
+#### 6. Real-time Monitoring
+Receive <500 ms updates on user activity, tweet interactions, and network shifts.
+
+#### 7. Keyword & Trend Dashboard
+Monitor keywords, track trends, discover engaged users, and visualize engagement data.
+
 ## Base URL
 - https://foxhole.bot/api/v1
 

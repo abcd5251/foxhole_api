@@ -1,0 +1,5 @@
+# data
+*.yaml
+*.csv
+*.py
+*.json
